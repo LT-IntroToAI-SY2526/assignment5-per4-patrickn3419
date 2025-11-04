@@ -106,7 +106,20 @@ class Board:
         Returns:
             a tuple of row, column index identifying the most constrained cell
         """
-        pass
+        mini_length = 9
+        mini_row = 0
+        mini_col = 0
+
+        for row in range(self.size):
+            for col in range(self.size):
+                cell = self.rows[row][col]
+                # print(f"({row},{col}): {cell}")
+                if isinstance(cell, list):
+                    if len(cell) < mini_length:
+                        mini_length = len(cell)
+                        mini_row = row
+                        mini_col = col
+        return (mini_row, mini_col)
 
     def failure_test(self) -> bool:
         """Check if we've failed to correctly fill out the puzzle. If we find a cell
@@ -264,24 +277,24 @@ if __name__ == "__main__":
     print(b)
     b.print_pretty()
 
-    # #I'm going to now alter 3 lists on the board to make them shorter (more
-    # #   constrained. 
-    # remove_if_exists(b.rows[0][0], 8)
-    # remove_if_exists(b.rows[0][0], 7)
-    # remove_if_exists(b.rows[0][0], 3)
-    # remove_if_exists(b.rows[0][0], 2)
-    # remove_if_exists(b.rows[4][8], 8)
-    # remove_if_exists(b.rows[4][8], 1)
-    # remove_if_exists(b.rows[4][8], 2)
-    # remove_if_exists(b.rows[4][8], 3)
-    # remove_if_exists(b.rows[4][8], 4)
-    # remove_if_exists(b.rows[6][7], 2)
-    # remove_if_exists(b.rows[6][7], 3)
-    # remove_if_exists(b.rows[6][7], 5)
-    # remove_if_exists(b.rows[6][7], 6)
-    # #we removed 5 items from positions (4,8) so that should now be the most
-    # #  constrained.
-    # assert b.find_most_constrained_cell() == (4,8), "find most constrained cell test 1"
+    #I'm going to now alter 3 lists on the board to make them shorter (more
+    #   constrained. 
+    remove_if_exists(b.rows[0][0], 8)
+    remove_if_exists(b.rows[0][0], 7)
+    remove_if_exists(b.rows[0][0], 3)
+    remove_if_exists(b.rows[0][0], 2)
+    remove_if_exists(b.rows[4][8], 8)
+    remove_if_exists(b.rows[4][8], 1)
+    remove_if_exists(b.rows[4][8], 2)
+    remove_if_exists(b.rows[4][8], 3)
+    remove_if_exists(b.rows[4][8], 4)
+    remove_if_exists(b.rows[6][7], 2)
+    remove_if_exists(b.rows[6][7], 3)
+    remove_if_exists(b.rows[6][7], 5)
+    remove_if_exists(b.rows[6][7], 6)
+    #we removed 5 items from positions (4,8) so that should now be the most
+    #  constrained.
+    assert b.find_most_constrained_cell() == (4,8), "find most constrained cell test 1"
     # assert b.failure_test() == False, "failure test test 1"
     # assert b.goal_test() == False, "goal test test 1"
 
