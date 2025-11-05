@@ -145,7 +145,12 @@ class Board:
         Returns:
             True if we've placed all numbers, False otherwise
         """
-        pass
+        for row in range(self.size):
+            for col in range(self.size):
+                cell = self.rows[row][col]
+                if isinstance(cell, list):
+                    return False
+        return True
 
     def update(self, row: int, column: int, assignment: int) -> None:
         """Assigns the given value to the cell given by passed in row and column
@@ -303,7 +308,7 @@ if __name__ == "__main__":
     #  constrained.
     assert b.find_most_constrained_cell() == (4,8), "find most constrained cell test 1"
     assert b.failure_test() == False, "failure test test 1"
-    # assert b.goal_test() == False, "goal test test 1"
+    assert b.goal_test() == False, "goal test test 1"
 
     # b.rows[4][3] = []
     # assert b.find_most_constrained_cell() == (4,3), "find most constrained cell test 2"
