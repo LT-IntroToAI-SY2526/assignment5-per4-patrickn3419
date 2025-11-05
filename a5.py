@@ -122,25 +122,21 @@ class Board:
         return (mini_row, mini_col)
 
     def failure_test(self) -> bool:
-        """Check if we've failed to correctly fill out the puzzle. If we find a cell
-        that contains an [], then we have no more possibilities for the cell but haven't
-        assigned it a value so fail.
+        """Check if we've failed to correctly fill out the puzzle.
+        If we find a cell that contains an empty list ([]), then we have
+        no more possibilities for that cell but haven't assigned it a value — fail.
 
         Returns:
             True if we have failed to fill out the puzzle, False otherwise
         """
-        fail_row = 0
-        fail_col = 0
-
         for row in range(self.size):
             for col in range(self.size):
                 cell = self.rows[row][col]
                 if cell == []:
-                    fail_row = row
-                    fail_col = col
-                    return (False)
-                else:
-                    return (True)
+                    # Found an empty cell → failure
+                    return True
+        return False
+
 
     def goal_test(self) -> bool:
         """Check if we've completed the puzzle (if we've placed all the numbers).
@@ -306,7 +302,7 @@ if __name__ == "__main__":
     #we removed 5 items from positions (4,8) so that should now be the most
     #  constrained.
     assert b.find_most_constrained_cell() == (4,8), "find most constrained cell test 1"
-    # assert b.failure_test() == False, "failure test test 1"
+    assert b.failure_test() == False, "failure test test 1"
     # assert b.goal_test() == False, "goal test test 1"
 
     # b.rows[4][3] = []
